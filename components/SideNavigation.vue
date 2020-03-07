@@ -87,10 +87,19 @@
 }
 </i18n>
 
-<script>
-import ListItem from '@/components/ListItem'
+<script lang="ts">
+import Vue from 'vue'
+import { TranslateResult } from 'vue-i18n'
+import ListItem from '@/components/ListItem.vue'
 
-export default {
+export type Item = {
+  icon?: string,
+  title: TranslateResult,
+  link: string,
+  divider?: boolean
+}
+
+export default Vue.extend({
   components: {
     ListItem
   },
@@ -101,7 +110,7 @@ export default {
     }
   },
   computed: {
-    items() {
+    items() : Array<Item> {
       return [
         {
           icon: 'mdi-chart-timeline-variant',
@@ -161,14 +170,14 @@ export default {
     }
   },
   methods: {
-    openNavi() {
+    openNavi() : void {
       this.$emit('openNavi')
     },
-    closeNavi() {
+    closeNavi() : void {
       this.$emit('closeNavi')
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>
@@ -256,7 +265,7 @@ export default {
     left: 0;
     display: block !important;
     width: 100%;
-    z-index: z-index-of(opened-side-navigation);    
+    z-index: z-index-of(opened-side-navigation);
     background-color: $white;
   }
 }
